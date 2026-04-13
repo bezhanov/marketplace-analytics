@@ -5,7 +5,10 @@ from http import HTTPStatus
 
 app = FastAPI()
 
-def get_wb_price(product_id: int, dest: int = -1257786, curr: str = "rub", spp: int = 30) -> dict:
+
+def get_wb_price(
+    product_id: int, dest: int = -1257786, curr: str = "rub", spp: int = 30
+) -> dict:
     url = "https://card.wb.ru/cards/v4/detail"
     params = {
         "appType": 1,
@@ -29,7 +32,7 @@ def get_wb_price(product_id: int, dest: int = -1257786, curr: str = "rub", spp: 
     if not sizes:
         return {}
     price = sizes[0].get("price", {})
-    basic = price.get("basic")        # старая цена в копейках
+    basic = price.get("basic")  # старая цена в копейках
     product_price = price.get("product")  # текущая цена в копейках
     return {
         "nm_id": product.get("id"),
@@ -37,15 +40,22 @@ def get_wb_price(product_id: int, dest: int = -1257786, curr: str = "rub", spp: 
         "basic_kop": basic,
         "product_kop": product_price,
         "basic_rub": basic / 100 if basic is not None else None,
-        "product_rub": product_price / 100 if product_price is not None else None,
+        "product_rub": (
+            product_price / 100 if product_price is not None else None
+        ),
     }
+
 
 @app.get("/{product_id}")
 def get_item_info(product_id: int):
     if product_id < 1:
-        raise HTTPException(status_code=HTTPStatus.UNPROCESSABLE_ENTITY, detail="Invalid user id")
+        raise HTTPException(
+            status_code=HTTPStatus.UNPROCESSABLE_ENTITY,
+            detail="Invalid user id",
+        )
     result = get_wb_price(product_id)
     return result
 
-if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8000)
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
