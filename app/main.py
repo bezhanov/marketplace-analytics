@@ -49,5 +49,10 @@ def get_item_info(product_id: int):
     return result
 
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 8080))
-    uvicorn.run(app, port=port)
+    host = os.environ.get("HOST", "0.0.0.0")
+    _port_str = os.environ.get("PORT", "8080")
+    try:
+        port = int(_port_str)
+    except ValueError:
+        raise ValueError(f"Invalid PORT value: {_port_str!r}. PORT must be a valid integer.")
+    uvicorn.run(app, host=host, port=port)
