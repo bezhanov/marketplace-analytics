@@ -22,8 +22,13 @@ build-backend = "poetry.core.masonry.api"
 [dependency-groups]
 dev = [
     "flake8 (>=7.3.0,<8.0.0)",
-    "black (>=26.3.1,<27.0.0)"
+    "black (>=26.3.1,<27.0.0)",
+    "pre-commit (>=4.5.1,<5.0.0)"
 ]
 
 [tool.black]
 line-length = 80
+
+[tool.flake8]
+max-line-length = 80
+extend-ignore = ["E203", "W503"]
