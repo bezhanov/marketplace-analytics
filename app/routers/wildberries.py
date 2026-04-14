@@ -7,6 +7,7 @@ router = APIRouter(prefix="/api/wb")
 
 wb_client = WildberriesClient()
 
+
 # TODO create routers schemas
 @router.get("/{product_id}")
 def get_item_info(product_id: int):
