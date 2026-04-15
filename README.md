@@ -22,7 +22,7 @@ All endpoints are served via **FastAPI** and follow standard HTTP semantics.
 ### Base URL
 
 ```
-http://0.0.0.0:8080
+http://localhost:8080
 ```
 
 ### Interactive API Documentation
@@ -30,16 +30,16 @@ http://0.0.0.0:8080
 Once the server is running, you can explore the API via Swagger UI:
 
 ```
-http://0.0.0.0:8080/docs
+http://localhost:8080/docs
 ```
 
 ### Endpoints
 
 
-#### Get Wildberries product Data
+#### Get Wildberries product data
 
 ```http
-GET /wb/{wb_product_id}
+GET /api/wb/{product_id}
 ```
 
 Returns detailed information about a specific product from Wildberries marketplace.
@@ -66,7 +66,7 @@ Returns detailed information about a specific product from Wildberries marketpla
 The API uses standard HTTP status codes:
 
 * `200 OK` — successful request
-* `400 Bad Request` — invalid input
+* `422 Unprocessable Entity` — invalid `product_id` or request validation error
 * `404 Not Found` — resource not found
 * `500 Internal Server Error` — unexpected error
 
@@ -89,7 +89,7 @@ project/
 │   ├── clients/
 │   │   ├── base.py                # Abstract base client
 │   │   └── wildberries.py         # Wildberries client
-│   ├── routes/                    # API endpoints
+│   ├── routers/                    # API endpoints
 │   └── core/
 │       └── config.py              # Application configuration
 ├── Dockerfile                     # Instructions for building a Docker image
@@ -134,20 +134,6 @@ poetry config virtualenvs.in-project true
 
 ```bash
 poetry install
-```
-
----
-
-### 4. Activate the virtual environment
-
-```bash
-.venv\Scripts\activate
-```
-
-> For macOS/Linux:
-
-```bash
-source .venv/bin/activate
 ```
 
 ---
