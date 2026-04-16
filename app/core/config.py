@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     app_name: str = "marketplace-analytics"
 
     # Server settings
-    host: str = "0.0.0.0"
+    host: str = "localhost"
     port: int = 8080
 
 
