@@ -89,9 +89,12 @@ project/
 │   ├── clients/
 │   │   ├── base.py                # Abstract base client
 │   │   └── wildberries.py         # Wildberries client
-│   ├── routers/                    # API endpoints
+│   ├── routers/                   # API endpoints
 │   └── core/
 │       └── config.py              # Application configuration
+├── tests/                         # Tests directory
+│   ├── unit/                      # Unit tests
+│   └── integration/               # Integration tests
 ├── Dockerfile                     # Instructions for building a Docker image
 ├── docker-compose.yaml            # Multi-container Docker setup
 ├── poetry.lock                    # Poetry dependency lock file
