@@ -6,20 +6,26 @@ from app.models.User import User, UserCreate
 
 router = APIRouter(prefix="/api/users")
 
+
 @router.get("/{user_id}", status_code=HTTPStatus.OK)
 def get_user(user_id: int) -> User:
     if user_id < 1:
-        raise HTTPException(status_code=HTTPStatus.UNPROCESSABLE_ENTITY,
-                            detail="Invalid user id")
+        raise HTTPException(
+            status_code=HTTPStatus.UNPROCESSABLE_ENTITY,
+            detail="Invalid user id",
+        )
     user = users.get_user(user_id)
     if not user:
-        raise HTTPException(status_code=HTTPStatus.NOT_FOUND,
-                            detail="User not found")
+        raise HTTPException(
+            status_code=HTTPStatus.NOT_FOUND, detail="User not found"
+        )
     return user
+
 
 @router.get("/", status_code=HTTPStatus.OK)
 def get_users() -> Iterable[User]:
     return users.get_users()
+
 
 @router.post("/", status_code=HTTPStatus.CREATED)
 def create_user(user: User) -> User:

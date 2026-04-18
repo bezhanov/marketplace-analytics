@@ -11,12 +11,14 @@ from app.core.config import settings
 from contextlib import asynccontextmanager
 from app.database.engine import create_db_and_tables
 
+
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     logging.warning("On startup")
     create_db_and_tables()
     yield
     logging.warning("On shutdown")
+
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
 
